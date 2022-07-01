@@ -41,19 +41,21 @@ def get_page(url, encoding, ish):
         return page_back.text
 
 
-def run_compile_page():
+def run_compile_page(ish):
     if page_text != "":
         print(PHJF_text + "\033[36m%s" % "已对接数据")
-        compile_page()
+        compile_page(ish)
     else:
         print(PHJF_text + "\033[31m%s" % "未查找到数据")
 
 
 # 抓取特别页面数据
-def compile_page():
+def compile_page(ish):
     soup = BeautifulSoup(page_text, 'html.parser')
     page_list = soup.select('.Revision_list')
-    print(PHJF_text + "\033[33m%s" % "正在保存数据...")
+    print(PHJF_text + "\033[33m%s" % "正在存储数据...")
+    # 换成您需要的
+    '''
     for each in page_list:
         for image in each.find_all("img"):
             image_url = image['data-original']
@@ -64,13 +66,23 @@ def compile_page():
             lists_info.append({"text": text.text}, )
         for data in each.find_all("span", attrs={"class": "time"}):
             lists_info.append({"data": data.text})
-
-    with open("templates/data.json", 'a', encoding=unicode) as save:
-        json_file = json.dumps(lists_info, sort_keys=False, ensure_ascii=False, indent=4, separators=(',', ': '))
-        save.write(json_file + "\n")
-    print(PHJF_text + "\033[32m%s" % "数据已保存")
+    '''
+    if ish == "json":
+        # GameNews可以是任何名字，不过如果你需要用到open_web，记得把哪里的也改掉
+        with open("example/data/GameNews.json", 'a', encoding=unicode) as save:
+            json_file = json.dumps(lists_info, sort_keys=False, ensure_ascii=False, indent=4, separators=(',', ': '))
+            save.write(json_file + "\n")
+        print(PHJF_text + "\033[32m%s" % "数据已保存")
+    elif ish == "data":
+        with open("example/templates/GameNews.txt", 'a', encoding=unicode) as save:
+            json_file = lists_info
+            save.write(str(json_file))
+        print(PHJF_text + "\033[32m%s" % "数据已对接")
+    else:
+        print(PHJF_text + "\033[31m%s" % "请输入正确的指令")
+        exit()
 
 
 def run_server():
-    print(PHJF_text + "\033[33m%s" % "正在启动服务器...")
+    print(PHJF_text + "\033[33m%s" % "正在启动本地服务器...")
     os.system('python3 open_web.py')
