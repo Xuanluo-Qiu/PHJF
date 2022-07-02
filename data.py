@@ -53,19 +53,17 @@ def run_compile_page(ish):
 def compile_page(ish):
     soup = BeautifulSoup(page_text, 'html.parser')
     page_list = soup.select('.Revision_list')
-    print(PHJF_text + "\033[33m%s" % "正在存储数据...")
+    print(PHJF_text + "\033[33m%s" % "正在编译数据...")
     # 换成您需要的
     '''
-    for each in page_list:
-        for image in each.find_all("img"):
-            image_url = image['data-original']
-            lists_info.append({"image": image_url}, )
-        for title in each.find_all("a", attrs={"class": "bt"}):
-            lists_info.append({"title": title.text}, )
-        for text in each.find_all("div", attrs={"class": "miaoshu"}):
-            lists_info.append({"text": text.text}, )
-        for data in each.find_all("span", attrs={"class": "time"}):
-            lists_info.append({"data": data.text})
+        for each in page_list:
+        image = each.find("img")
+        image_url = image['data-original']
+        title = each.find("a", attrs={"class": "bt"})
+        text = each.find("div", attrs={"class": "miaoshu"}).text
+        data = each.find("span", attrs={"class": "time"}).text
+        lists_info.append({"image": image_url, "title": title.text, "text": text, "data": data})
+
     '''
     if ish == "json":
         # GameNews可以是任何名字，不过如果你需要用到open_web，记得把哪里的也改掉

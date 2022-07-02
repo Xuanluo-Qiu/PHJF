@@ -1,4 +1,4 @@
-# PHJF Alpha v0.1.1
+# PHJF Alpha v0.1.2
 * 简单易懂的爬虫
 * 使用python将html转化成json并部署到服务器
 -----------------
@@ -23,7 +23,6 @@
 **未实现的功能**
 + 部署到真正意义上的互联网服务器
 + 爬虫未响应自动结束程序
-+ 高性能解析网页
 + 部署到服务器时进行格式化
  
  ---
@@ -33,14 +32,15 @@
 **>>注意<<：所依赖的第三方库**
 * BeautifulSoup
 * Flask  
+* lxml
 
-**请记得安装这两个库，直接pip3下载即可**
+**请记得安装这些库，直接pip3下载即可**
 ***
 **正如你所见到的**,当你下载下来打开包时就会发现，它看起来不像是一个“正常的”库，你甚至可以直接复制粘贴
 到自己的项目里，事实上，这也是我想见到的，您可以随意添加，修改，来进行属于你的定制。
 ## 我提供了一个实例，``example``就是实例。希望它能帮助你更好地了解这个库
 ***
-## 基本包(Basic)
+
 ### Data.py和Main.py
 **打开** *main.py*
 打开后，你会看到两个函数，一个是 ``get_page() ``
@@ -60,7 +60,7 @@
 比如我想要得到百度的网站数据并且保存就可以这么写
 
 ```python3
-from basic.data import *
+from data import *
 
 
 def main():
@@ -82,23 +82,9 @@ if __name__ == "__main__":
 ### open_web.py
 进入后你就会明白它的作用，查看`return jsonify(render_template("GameNews.txt"))`语句，``GameNews.txt``是要挂载到网页上的Json文件名，程序将自动将其转换成Json文件，您可能已经发现了``<json_name>``这个变量，这意味着您可以在目录下放更多的文件互不干扰
 
-**实例** 得到并解析[3DM的游戏新闻](https://www.3dmgame.com/news/game/)的标题，时间，正文和简文保存为json后挂载到本地服务器
+## 在开始一切工作之前，请翻阅代码与注释，这会帮助你更好的理解它，
+### **实例** 得到并解析[3DM的游戏新闻](https://www.3dmgame.com/news/game/)的标题，时间，正文和简文保存为json后挂载到本地服务器
 
-```python3
-from example.data import *
-
-
-def main():
-  get_page("https://www.3dmgame.com/news/game/", "", "let")
-  run_compile_page("txt")
-  run_server()
-
-
-if __name__ == "__main__":
-  main()
-```
-
-## 在开始一切之前，请翻阅基本包和实例包内的代码与注释，这会帮助你更好的理解它
 **常见问题**
 * Q:爬虫爬不动了  
   A:重新启动程序

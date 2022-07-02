@@ -1,4 +1,4 @@
-from basic.data import *
+from data import *
 
 
 def main():
